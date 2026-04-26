@@ -1,0 +1,89 @@
+---
+title: "Frequently Asked Questions About Keiyoushi Extensions"
+description: "Answers to common questions about app compatibility, NSFW content, content hosting, extension updates, iOS support, source removals, and contributing."
+---
+
+The questions below cover the things people ask most often about the Keiyoushi extension repository. If your question is not answered here, you can ask on [Discord](https://discord.gg/3FbCpdKbdY) or check the [extensions-source repository](https://github.com/keiyoushi/extensions-source).
+
+<AccordionGroup>
+  <Accordion title="What apps does this repository support?">
+    Keiyoushi extensions are compatible with **Mihon** and all forks of **Tachiyomi** that support external extension repositories. This includes popular forks such as TachiyomiJ2K, TachiyomiSY, Neko, and others that share the same extension API.
+
+    If your app has an **Extension repositories** screen (usually found under **Browse** or **Settings → Browse**), it is compatible. If your app does not have that screen, it may not support external repositories — check your app's own documentation or update to a newer version.
+  </Accordion>
+
+  <Accordion title="Is this repository official?">
+    No. Keiyoushi is a community-maintained project and is not affiliated with, endorsed by, or operated by the developers of Mihon, Tachiyomi, or any of its forks.
+
+    The repository is maintained by volunteers who develop and publish extensions under the [extensions-source](https://github.com/keiyoushi/extensions-source) project. If you have a problem with an extension, report it to the [extensions-source issue tracker](https://github.com/keiyoushi/extensions-source/issues/new/choose), not to the app developers.
+  </Accordion>
+
+  <Accordion title="Why do some extensions have NSFW content?">
+    Some third-party manga and comic sites host adult content, and Keiyoushi provides extensions for those sites alongside safe-for-work ones.
+
+    NSFW extensions are **opt-in and hidden by default**. They will not appear on the Extensions screen until you explicitly enable **Show NSFW sources** under **Settings → Browse** in your app. You have to take a deliberate action to make them visible — they are never shown automatically.
+
+    Enabling the setting only makes those extensions discoverable. It does not change any content filtering within the sources themselves, and it does not install anything automatically.
+  </Accordion>
+
+  <Accordion title="Where does the manga content come from?">
+    All content is served by third-party websites. Keiyoushi does not host, store, or distribute any manga or comic content itself — the repository only contains the APK files that teach your app how to communicate with external sites.
+
+    When you read a chapter through an extension, your app fetches the images directly from the source website. Keiyoushi has no involvement in, and no control over, what those websites publish or how they operate.
+  </Accordion>
+
+  <Accordion title="How often are extensions updated?">
+    Extensions are built and published automatically by a CI/CD pipeline connected to the [extensions-source repository](https://github.com/keiyoushi/extensions-source). Whenever a contributor merges a change — whether it is a bug fix, a new feature, or a new source — the pipeline builds the affected APKs and pushes an updated index to the `repo` branch.
+
+    There is no fixed release schedule. Updates go out continuously as contributions are merged. Your app checks the index the next time it refreshes the extension list and shows an **Update** button for any extension that has a newer version available.
+  </Accordion>
+
+  <Accordion title="Can I use extensions on iOS?">
+    No. Extensions are Android APK files and can only be installed on Android devices. There is no iOS version of Mihon, Tachiyomi, or their forks, and no iOS-compatible format for Keiyoushi extensions.
+
+    If you are on iOS, you will need to look for a separate manga reader app available on the App Store — those apps use their own extension or source systems that are unrelated to Keiyoushi.
+  </Accordion>
+
+  <Accordion title="What is extensions-source?">
+    [extensions-source](https://github.com/keiyoushi/extensions-source) is the source code repository where all Keiyoushi extensions are written and maintained. Each extension is a small Android library written in Kotlin that implements the Tachiyomi extension API for a specific website.
+
+    If you want to:
+    - **Report a bug** with an existing extension — open an issue on extensions-source.
+    - **Request a new source** — open a source request issue on extensions-source.
+    - **Contribute a fix or a new extension** — submit a pull request to extensions-source.
+
+    The APKs in the Keiyoushi repository are compiled automatically from the code in extensions-source every time a change is merged.
+  </Accordion>
+
+  <Accordion title="Why was an extension removed?">
+    Extensions are occasionally removed from the repository for several reasons:
+
+    - **Site shutdown** — the underlying website closed permanently, making the extension non-functional.
+    - **Legal or copyright action** — a rights holder filed a complaint that required the extension to be taken down.
+    - **Maintainer request** — the person who wrote the extension asked for it to be removed.
+    - **Abandonment** — the source required ongoing maintenance that was no longer available, and the extension was too broken to be worth keeping.
+
+    If an extension you relied on has disappeared, search the [extensions-source issues](https://github.com/keiyoushi/extensions-source/issues) for the source name to find context about why it was removed and whether an alternative exists.
+
+    Extensions that are already installed on your device before removal will continue to function as long as the underlying website is still accessible — you just will not receive further updates through the repository.
+  </Accordion>
+
+  <Accordion title="How do I request a new source?">
+    Open a source request on the [extensions-source issue tracker](https://github.com/keiyoushi/extensions-source/issues/new/choose) and select the appropriate issue template. Include the website URL, the language of the content, and any other relevant details.
+
+    Keep in mind that source requests are fulfilled by volunteers. There is no guaranteed timeline, and requests for sites that are difficult to scrape, require accounts, or have a small audience may take a long time or may not be implemented at all. If you are able to write Kotlin, contributing the extension yourself is the fastest path.
+  </Accordion>
+
+  <Accordion title="Can I install extensions without using the app's built-in installer?">
+    Yes. Every extension is available as a direct APK download from the [Keiyoushi extensions listing page](https://keiyoushi.github.io/extensions/). Find the extension you want, tap the download link, and then open the downloaded file with your file manager to sideload it manually.
+
+    Manual installation is useful if:
+    - Your app does not support external repositories.
+    - You want to install a specific older version of an extension.
+    - You are troubleshooting an in-app installation failure.
+
+    <Note>
+      Manually installed extensions do not update automatically. You will need to revisit the listing page and download the new APK whenever an update is released.
+    </Note>
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,61 @@
+{
+  "projectType": "general",
+  "projectName": "Keiyoushi Extensions",
+  "projectDescription": "A community-maintained extension repository for Mihon and Tachiyomi variants, providing hundreds of manga, manhwa, and manhua source extensions as installable Android APKs.",
+  "theme": "palm",
+  "primaryColor": "#4A6FA5",
+  "lightColor": "#6B8EC4",
+  "darkColor": "#2D4A7A",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Getting Started",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": ["introduction", "getting-started/adding-the-repo", "getting-started/installing-extensions"]
+          },
+          {
+            "group": "Guides",
+            "pages": ["guides/finding-extensions", "guides/troubleshooting", "guides/faq"]
+          }
+        ]
+      },
+      {
+        "tab": "Extensions",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": ["extensions/overview", "extensions/language-support"]
+          },
+          {
+            "group": "Notable Sources",
+            "pages": ["extensions/popular-sources", "extensions/self-hosted-sources"]
+          },
+          {
+            "group": "Contributing",
+            "pages": ["contributing/reporting-issues", "contributing/source-requests"]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "1,352+ extension APKs for manga/manhwa/manhua reading",
+    "Support for 20+ languages including English, Japanese, Spanish, Portuguese, and more",
+    "Compatible with Mihon, Tachiyomi, and all major forks",
+    "Machine-readable index.json for programmatic extension discovery",
+    "NSFW content filtering support via nsfw field in extension metadata",
+    "Self-hosted source support (Komga, LANraragi, Mango, Kavita)",
+    "Simple one-URL repo setup via index.min.json",
+    "Automated CI/CD build and publish pipeline"
+  ],
+  "publicApiSurface": [
+    "GET https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json — minified extension index",
+    "GET https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.json — full extension index with sources metadata",
+    "APK download: https://raw.githubusercontent.com/keiyoushi/extensions/repo/apk/{filename}.apk",
+    "index.json extension object: { name, pkg, apk, lang, code, version, nsfw, sources[] }",
+    "source object: { name, lang, id, baseUrl, versionId }",
+    "repo.json: { meta: { name, website, signingKeyFingerprint } }"
+  ]
+}

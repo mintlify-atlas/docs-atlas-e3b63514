@@ -1,0 +1,86 @@
+---
+title: "Language Support Across the Extension Catalogue"
+description: "All 23 language codes in the Keiyoushi catalogue, extension counts per language, how multi-language sources work, and how to filter by language in your app."
+---
+
+The Keiyoushi catalogue spans more than 20 languages, reflecting the global reach of manga, manhwa, manhua, and webcomic culture. Every extension declares a primary language code that tells your app which content language it serves, and your app uses this to let you filter the Extensions screen to just the languages you read. Whether you read exclusively in English or follow scan groups publishing in Turkish, Vietnamese, or Arabic, you can narrow the extension list to what is relevant to you.
+
+<Tip>
+  Language codes in the extension index are primarily ISO 639-1 two-letter codes (e.g. `en`, `ja`), with BCP 47 region variants used where needed (e.g. `pt-BR`, `zh-Hans`). The special value `all` marks multi-language extensions.
+</Tip>
+
+## Supported languages
+
+The table below lists every language code present in the catalogue, the corresponding language, and an approximate count of extensions for that language.
+
+| Code | Language | Approx. extensions |
+|---|---|---|
+| `en` | English | ~425 |
+| `all` | All languages (multi-language) | ~122 |
+| `es` | Spanish | ~123 |
+| `pt-BR` | Portuguese (Brazil) | ~109 |
+| `ja` | Japanese | ~96 |
+| `id` | Indonesian | ~93 |
+| `tr` | Turkish | ~76 |
+| `vi` | Vietnamese | ~65 |
+| `fr` | French | ~51 |
+| `ar` | Arabic | ~49 |
+| `zh` | Chinese (Traditional/Simplified) | ~42 |
+| `th` | Thai | ~36 |
+| `ru` | Russian | ~28 |
+| `it` | Italian | ~16 |
+| `ko` | Korean | ~7 |
+| `zh-Hans` | Chinese (Simplified, explicit) | ~4 |
+| `uk` | Ukrainian | ~3 |
+| `ca` | Catalan | ~2 |
+| `bg` | Bulgarian | ~1 |
+| `cs` | Czech | ~1 |
+| `de` | German | ~1 |
+| `pl` | Polish | ~1 |
+| `zh-Hant` | Chinese (Traditional, explicit) | ~1 |
+
+Counts are approximate and increase as the community adds new extensions. The English catalogue is the largest, followed by Spanish and Portuguese (Brazil).
+
+<Note>
+  The `zh`, `zh-Hans`, and `zh-Hant` codes all represent Chinese extensions. `zh` is used for extensions that do not distinguish between Simplified and Traditional; `zh-Hans` and `zh-Hant` are used when the extension explicitly targets one script variant.
+</Note>
+
+## Multi-language extensions (`lang: "all"`)
+
+Extensions with `lang: "all"` are not limited to a single language — they connect to platforms that serve content in multiple languages simultaneously. When you install one of these extensions, it registers several sources in your app, each scoped to a different language.
+
+Well-known multi-language extensions include:
+
+- **MangaDex** — community scanlations in dozens of languages
+- **MANGA Plus by SHUEISHA** — official Shueisha simulpubs in English and Spanish
+- **MANGA Plus Creators by SHUEISHA** — creator-uploaded comics in multiple languages
+- **Webtoons.com** — LINE Webtoons platform with English and other regional catalogues
+- **Komga** — self-hosted comic server, language depends on your library
+- **LANraragi** — self-hosted archive reader, language depends on your library
+- **Pixiv** — Japanese illustration and manga platform with international content
+- **MangaFire** — aggregator with English and other language sections
+- **Kemono** — Patreon/Fanbox archive with mixed-language content
+
+<Note>
+  Filtering your app's Extensions screen to a specific language (for example, `en`) will hide `all` extensions. To see multi-language sources, either remove the language filter or add `all` to your active filter.
+</Note>
+
+## Filtering by language in your app
+
+Your app lets you filter the Extensions screen by language so you only see extensions relevant to what you read.
+
+<Steps>
+  <Step title="Open the Extensions screen">
+    Tap **Browse** in the bottom navigation bar, then tap **Extensions**.
+  </Step>
+  <Step title="Open the language filter">
+    Tap the filter icon in the top-right corner of the Extensions screen.
+  </Step>
+  <Step title="Select your languages">
+    Check the language codes you want to see. Extensions matching any of the selected languages will be shown. Uncheck a language to hide its extensions.
+  </Step>
+</Steps>
+
+<Tip>
+  If you read content from multi-language sources like MangaDex, include `all` in your language filter alongside your preferred language so those extensions remain visible.
+</Tip>

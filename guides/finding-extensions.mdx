@@ -1,0 +1,126 @@
+---
+title: "Finding and Browsing the 1,352+ Keiyoushi Extensions"
+description: "Search and filter extensions by language inside your app, browse the full catalogue on the Keiyoushi website, or query the index programmatically."
+---
+
+The Keiyoushi repository hosts 1,352 extensions spanning 20+ languages. You can find the extension you need directly inside your manga reader app, browse the full listing online without installing anything, or query the index JSON programmatically if you are building a tool or script.
+
+## Search and filter inside the app
+
+<Steps>
+  <Step title="Open the Extensions screen">
+    Tap **Browse** in the bottom navigation bar, then tap **Extensions** at the top of the screen.
+  </Step>
+  <Step title="Filter by language">
+    Tap the filter icon (funnel) to open the language picker. Select one or more languages to hide extensions that do not match. This is the fastest way to reduce a list of 1,352 entries down to your preferred sources.
+  </Step>
+  <Step title="Search by name">
+    Tap the search icon and type the name of a site or source. The list filters in real time as you type, matching against both the extension name and the underlying source name.
+  </Step>
+</Steps>
+
+<Tip>
+  If you cannot find an extension you expect to see, check whether **Show NSFW sources** is enabled under **Settings → Browse**. Extensions for adult-content sites are hidden by default and will not appear in search results until you enable that setting.
+</Tip>
+
+## Browse extensions on the website
+
+You can explore all available extensions at [keiyoushi.github.io/extensions](https://keiyoushi.github.io/extensions/) without opening your app. The listing page shows every extension with its name, language, version, and a direct APK download link. This is useful for:
+
+- Checking whether a source exists before adding the repository.
+- Downloading an APK manually to sideload onto a device that does not have Mihon or a supported fork installed.
+- Verifying the current version of an extension.
+
+## Language codes
+
+Extensions are organised by language using BCP 47-style codes. The special value `all` means the extension supports multiple languages or is language-agnostic.
+
+| Code | Language |
+|------|----------|
+| `en` | English |
+| `ja` | Japanese |
+| `zh`, `zh-Hans`, `zh-Hant` | Chinese (Simplified / Traditional) |
+| `ko` | Korean |
+| `fr` | French |
+| `es` | Spanish |
+| `pt-BR` | Portuguese (Brazil) |
+| `id` | Indonesian |
+| `ru` | Russian |
+| `ar` | Arabic |
+| `tr` | Turkish |
+| `th` | Thai |
+| `vi` | Vietnamese |
+| `de` | German |
+| `it` | Italian |
+| `pl` | Polish |
+| `bg` | Bulgarian |
+| `cs` | Czech |
+| `ca` | Catalan |
+| `uk` | Ukrainian |
+| `all` | Multi-language / language-agnostic |
+
+## Query the index programmatically
+
+If you are building a tool, bot, or integration, you can fetch the full extension index directly from GitHub.
+
+| URL | Description |
+|-----|-------------|
+| `https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json` | Minified index — the URL your app uses |
+| `https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.json` | Pretty-printed index — easier to read and parse |
+
+Both URLs return the same data: a JSON array where each element describes one extension.
+
+### Extension object structure
+
+Below is a representative entry from the index — a single-language, SFW English extension:
+
+```json
+{
+  "name": "Tachiyomi: Akai Comic",
+  "pkg": "eu.kanade.tachiyomi.extension.en.akaicomic",
+  "apk": "tachiyomi-en.akaicomic-v1.4.2.apk",
+  "lang": "en",
+  "code": 2,
+  "version": "1.4.2",
+  "nsfw": 0,
+  "sources": [
+    {
+      "name": "Akai Comic",
+      "lang": "en",
+      "id": "1987646205658282178",
+      "baseUrl": "https://akaicomic.org",
+      "versionId": 1
+    }
+  ]
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Display name of the extension, always prefixed with `Tachiyomi: `. |
+| `pkg` | string | Android package name (`eu.kanade.tachiyomi.extension.{lang}.{source}`). |
+| `apk` | string | APK filename (`tachiyomi-{lang}.{source}-v{version}.apk`). |
+| `lang` | string | Primary language code for the extension (see table above). |
+| `code` | integer | Internal version code used by Android for update detection. |
+| `version` | string | Human-readable semantic version string. |
+| `nsfw` | integer | `0` = safe-for-work content; `1` = may contain adult content. |
+| `sources` | array | One or more source objects provided by this extension (see below). |
+
+Each object in the `sources` array has these fields:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Display name of the source as shown in the app. |
+| `lang` | string | Language code for this specific source. |
+| `id` | string | Unique 64-bit source identifier used by the app internally. |
+| `baseUrl` | string | Base URL of the website this source connects to. |
+| `versionId` | integer | Schema version for this source's data model. |
+
+### The `nsfw` field
+
+The `nsfw` field signals whether an extension connects to a site that may contain adult content:
+
+- `0` — the extension is safe-for-work and visible to all users by default.
+- `1` — the extension is hidden in the app until the user explicitly enables **Show NSFW sources** in **Settings → Browse**.
+
+When building tools that surface extensions to other users, you should respect this flag and treat `nsfw: 1` entries as opt-in.

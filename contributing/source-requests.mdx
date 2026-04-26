@@ -1,0 +1,56 @@
+---
+title: "Requesting a New Manga Source Extension"
+description: "How to request a new source be added to the Keiyoushi extension repository, including what information to provide and what sources are typically accepted."
+---
+
+New source extensions are developed in the [keiyoushi/extensions-source](https://github.com/keiyoushi/extensions-source) repository. If you'd like a site added to the catalogue, you can open a source request issue there — maintainers and community contributors review requests and implement new extensions based on interest and feasibility.
+
+## Check for duplicates first
+
+Before submitting a request, search [existing issues and pull requests](https://github.com/keiyoushi/extensions-source/issues) for the source name. The source may already be under development, or a similar request may have been declined with a reason that applies to your site as well.
+
+<Tip>
+  Also check [keiyoushi.github.io/extensions/](https://keiyoushi.github.io/extensions/) to confirm the source isn't already in the catalogue under a slightly different name.
+</Tip>
+
+## Open a source request
+
+Go to [github.com/keiyoushi/extensions-source/issues/new/choose](https://github.com/keiyoushi/extensions-source/issues/new/choose) and select the **Source request** template.
+
+A good request includes:
+
+- **The exact URL** of the source website
+- **Language** of the content (English, Japanese, Spanish, etc.)
+- **Content type** (manga, manhwa, manhua, webtoon, webcomic, light novel)
+- **Whether the site requires a free account** for basic browsing
+- **Whether the site has a public API** or requires HTML scraping
+- A brief description of the site's catalogue size and focus
+
+## What gets accepted
+
+Sources are generally accepted when they meet these criteria:
+
+- The site is publicly accessible without payment for at least some content
+- The catalogue is reasonably large or serves an underserved language/niche
+- The site's terms of service do not explicitly prohibit third-party clients
+- The site does not use aggressive anti-bot measures that would make a stable extension impossible to maintain
+
+## What is typically not accepted
+
+<Warning>
+  Requests for the following types of sources are usually declined:
+</Warning>
+
+- Sites requiring a paid subscription for all content with no free tier
+- Sites with very small catalogues (fewer than a few dozen titles)
+- Sites that are mirrors or aggregators of sources already in the catalogue
+- Sites that have previously been removed from the catalogue (often for legal or maintenance reasons)
+- Sites with active legal disputes or known DMCA records against third-party scraping
+
+## Contributing an extension yourself
+
+If you're a developer, you can build the extension yourself and submit a pull request to [keiyoushi/extensions-source](https://github.com/keiyoushi/extensions-source). Extensions are written in Kotlin for Android. The source repository contains existing extensions you can use as reference implementations.
+
+<Note>
+  The maintainers have final say on what is merged into the catalogue. A well-written PR with a clean implementation is much more likely to be accepted than a feature request alone.
+</Note>

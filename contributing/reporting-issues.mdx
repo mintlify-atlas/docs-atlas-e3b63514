@@ -1,0 +1,59 @@
+---
+title: "How to Report a Broken or Failing Extension"
+description: "Learn where and how to file a bug report for a Keiyoushi extension, including what information to include and how to distinguish source outages from bugs."
+---
+
+When an extension stops working, the right place to report it is the [extensions-source issue tracker](https://github.com/keiyoushi/extensions-source/issues/new/choose) — that is where the extension source code lives and where maintainers can investigate and fix the problem.
+
+<Note>
+  There are two separate repositories: **keiyoushi/extensions** (this distribution repo — compiled APKs and the JSON index) and **keiyoushi/extensions-source** (the source code). All bug reports should go to **extensions-source**.
+</Note>
+
+## Before filing an issue
+
+Before opening a new report, do a quick check:
+
+1. **Confirm the source website itself is up.** Open the source site in your browser. If the site is down or showing errors independently of the app, this is not an extensions-source bug — wait for the site to recover.
+2. **Search existing issues.** Go to [github.com/keiyoushi/extensions-source/issues](https://github.com/keiyoushi/extensions-source/issues) and search for the source name. Someone may have already reported it.
+3. **Update the extension.** In your app, go to **Browse → Extensions** and check for pending updates. An outdated extension may fail if the source site changed its layout.
+
+## How to file a good bug report
+
+<Steps>
+  <Step title="Open the issue tracker">
+    Go to [github.com/keiyoushi/extensions-source/issues/new/choose](https://github.com/keiyoushi/extensions-source/issues/new/choose) and select the appropriate issue template.
+  </Step>
+  <Step title="Identify the exact extension">
+    In your app, find the extension name and version number (shown under **Browse → Extensions → Installed**). Include both in your report — for example, "Tachiyomi: MangaBuddy v1.4.22".
+  </Step>
+  <Step title="Describe the problem clearly">
+    State what you expected to happen and what actually happened. For example: "Searching returns no results" or "Chapter pages fail to load with a 403 error."
+  </Step>
+  <Step title="Include your environment">
+    Provide your app name and version, extension version, and Android version. This helps maintainers reproduce the issue.
+  </Step>
+  <Step title="Add reproduction steps">
+    List the exact steps to trigger the problem — for example: open source → search "one piece" → tap first result → tap chapter → loading spinner never stops.
+  </Step>
+</Steps>
+
+## What not to report
+
+<Warning>
+  Do not file issues for the following — they will be closed without action:
+</Warning>
+
+- **The source website is temporarily down.** This is outside the maintainers' control.
+- **NSFW content complaints.** Extensions with adult content require explicit opt-in; this is by design.
+- **Copyright or DMCA requests.** These must be directed to the content-hosting site, not this project.
+- **Feature requests for the reader app.** Those belong to the relevant app's own repository (e.g., [mihon/mihon](https://github.com/mihon/mihon)).
+
+## Get help on Discord
+
+For quick questions or to check whether an issue is known, join the community on Discord:
+
+[discord.gg/3FbCpdKbdY](https://discord.gg/3FbCpdKbdY)
+
+<Tip>
+  Searching Discord before filing a GitHub issue often gets you a faster answer — other users may have already found a workaround.
+</Tip>

@@ -1,0 +1,143 @@
+---
+title: "Troubleshooting Common Keiyoushi Extension Problems"
+description: "Fix repository loading failures, installation errors, missing content, stuck updates, and removed extensions with these step-by-step solutions."
+---
+
+Most problems with Keiyoushi extensions fall into a small set of categories: the repository index fails to load, an extension won't install, a source stops returning results, or an extension disappears from the list. Work through the relevant section below to resolve the issue. If none of these steps help, you can ask for assistance on [Discord](https://discord.gg/3FbCpdKbdY) or open an issue on the [extensions-source tracker](https://github.com/keiyoushi/extensions-source/issues/new/choose).
+
+<AccordionGroup>
+  <Accordion title="Repository not loading / 'Failed to load' error">
+    When your app shows a "Failed to load" message or the extension list stays empty after adding the repository, the most common causes are a network problem or a misconfigured URL.
+
+    **Check your connection first**
+
+    Make sure your device has a working internet connection and that your network does not block raw.githubusercontent.com (some corporate or school networks do).
+
+    **Verify the repository URL**
+
+    The correct URL is:
+
+    ```text
+    https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json
+    ```
+
+    Note the branch name in the URL: it must be `repo`, not `main` or `master`. If you typed the URL manually, a single character difference will cause a 404 error.
+
+    **Re-add the repository**
+
+    <Steps>
+      <Step title="Remove the existing repository entry">
+        In your app, go to **Browse → Extension repositories**, long-press the Keiyoushi entry, and delete it.
+      </Step>
+      <Step title="Re-add the URL">
+        Tap **Add repository** and paste the URL again:
+
+        ```text
+        https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json
+        ```
+      </Step>
+      <Step title="Wait for the index to refresh">
+        Your app will re-fetch the index. If it loads successfully, the entry will show a count of available extensions.
+      </Step>
+    </Steps>
+
+    <Note>
+      The one-tap add page at [keiyoushi.github.io/add-repo](https://keiyoushi.github.io/add-repo) pre-fills the correct URL and avoids manual typing errors.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Extension not installing">
+    If tapping **Install** does nothing or the installation fails immediately, the issue is almost always an Android permission or a storage problem.
+
+    **Grant the "Install unknown apps" permission**
+
+    Android requires explicit permission before any app other than the Play Store can install APKs. The exact steps vary by Android version:
+
+    - **Android 8 and later:** When prompted, tap **Settings** in the dialog and toggle **Allow from this source** for your manga reader app.
+    - **Android 7 and earlier:** Go to **Settings → Security** and enable **Unknown sources**.
+
+    If you dismissed the permission prompt without granting it, go to **Settings → Apps → [your app] → Install unknown apps** and enable it manually.
+
+    **Check available storage**
+
+    Extension APKs are small (typically under 5 MB each), but if your device has less than a few hundred megabytes free, Android may silently refuse installations. Free up space and try again.
+
+    **Try downloading the APK manually**
+
+    If in-app installation continues to fail, download the APK directly from [keiyoushi.github.io/extensions](https://keiyoushi.github.io/extensions/) and install it by opening the downloaded file in your file manager.
+
+    <Warning>
+      Only download extension APKs from the official Keiyoushi listing page or the GitHub releases. Third-party sources may distribute modified or malicious APKs.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Source shows 'No results' or fails to load content">
+    After installing an extension, if browsing or searching a source returns "No results" or an error, the problem is usually on the source website — not in your app.
+
+    **Check whether the site is reachable**
+
+    Open the source's `baseUrl` in a browser on the same device. If the site is down, returns a Cloudflare challenge, or has changed its URL, the extension will not work until the underlying issue is resolved.
+
+    **Check for an available extension update**
+
+    Go to **Browse → Extensions** and look for an **Update** button next to the extension. Source websites change their structure over time, and extension developers push fixes through updates. Installing the latest version often resolves "No results" errors.
+
+    **Check the issue tracker**
+
+    Search the [extensions-source issues](https://github.com/keiyoushi/extensions-source/issues) for the source name. If others have reported the same problem, there may be a fix in progress or a workaround in the comments. If no issue exists, open one to let the maintainers know.
+
+    <Tip>
+      Some sources geo-restrict their content. If a source works for other users but not for you, try disabling a VPN or switching to a different server location.
+    </Tip>
+  </Accordion>
+
+  <Accordion title="Extension update loop / stuck updating">
+    If an extension shows **Update** repeatedly even after you tap it, or the update appears to complete and then reappears immediately, clearing the app cache usually resolves it.
+
+    <Steps>
+      <Step title="Clear the app cache">
+        On your device, go to **Settings → Apps → [your manga reader app] → Storage → Clear cache**. Do not tap "Clear data" — that will delete your library and settings.
+      </Step>
+      <Step title="Restart the app">
+        Close the app completely and reopen it, then go to **Browse → Extensions** and check whether the update prompt is gone.
+      </Step>
+      <Step title="Reinstall the extension if the loop persists">
+        If the update loop continues, uninstall the extension from the Extensions screen, then reinstall it fresh. This forces Android to register the correct version code.
+      </Step>
+    </Steps>
+
+    <Note>
+      If multiple extensions are stuck in an update loop at the same time, this sometimes indicates a version mismatch between the index and the APK. Check the [extensions-source repository](https://github.com/keiyoushi/extensions-source) to see if a build is currently in progress — the index updates automatically when a new build completes, and the loop should resolve itself once the build finishes.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Extension or source has disappeared">
+    Extensions are occasionally removed from the repository. If an extension you previously used no longer appears in the list, it was likely removed intentionally.
+
+    **Common reasons for removal:**
+
+    - The source website shut down permanently.
+    - A legal or copyright complaint was filed against the source.
+    - The extension's maintainer requested removal.
+    - The source required more maintenance than was available and was abandoned.
+
+    **Check the issue tracker for context**
+
+    Search the [extensions-source issues](https://github.com/keiyoushi/extensions-source/issues) for the source name. Removal discussions are usually documented there, and you may find information about an alternative source that provides similar content.
+
+    **Already-installed extensions continue to work**
+
+    If you had the extension installed before it was removed, it will keep working as long as the underlying website is still up. You just will not receive future updates through the repository.
+
+    <Warning>
+      Do not attempt to re-add a removed extension by sideloading old APKs from unofficial sources. Removed APKs from third parties may be outdated, broken, or tampered with.
+    </Warning>
+  </Accordion>
+</AccordionGroup>
+
+## Still need help?
+
+If none of the above resolves your issue:
+
+- Join the [Keiyoushi Discord](https://discord.gg/3FbCpdKbdY) and ask in the support channel.
+- Open a bug report on the [extensions-source issue tracker](https://github.com/keiyoushi/extensions-source/issues/new/choose) with your app version, Android version, and a description of what you tried.

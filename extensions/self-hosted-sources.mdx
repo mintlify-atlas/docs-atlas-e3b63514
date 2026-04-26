@@ -1,0 +1,88 @@
+---
+title: "Self-Hosted Sources: Connect to Your Own Server"
+description: "Connect Mihon or Tachiyomi to self-hosted servers like Komga, LANraragi, Mango, Cubari, and StashApp running on your local network or a VPS."
+---
+
+Self-hosted sources work differently from public extensions. Instead of connecting to a website on the internet, they connect to server software you run yourself — either on a computer on your local network, a Raspberry Pi, a NAS, or a VPS. You install the extension in your app, open its settings, enter the address of your server, and the app reads your library directly from that server. No content is fetched from external sites; everything comes from your own storage.
+
+<Note>
+  All self-hosted extensions require the corresponding server software to be installed and running before the extension will work. The extension itself does not include or install the server.
+</Note>
+
+## Supported self-hosted servers
+
+### Komga
+
+**APK:** `tachiyomi-all.komga-v1.4.64.apk`
+
+[Komga](https://komga.org) is an open-source comic and manga server. It scans a folder structure on your machine, builds a library of series and books, and exposes a REST API. The Komga extension registers up to three separate sources in your app (**Komga**, **Komga (2)**, **Komga (3)**), which lets you connect to up to three different Komga servers simultaneously.
+
+After installing the extension, open **Browse → Sources**, tap the **Settings** icon next to a Komga source, and enter your server URL (for example, `http://192.168.1.100:25600` for a local server or your public domain if you expose Komga over HTTPS). You will also need to supply your Komga username and password.
+
+Refer to the [Komga documentation](https://komga.org/docs/installation/docker-compose) for installation instructions.
+
+### LANraragi
+
+**APK:** `tachiyomi-all.lanraragi-v1.4.20.apk`
+
+[LANraragi](https://sugoi.moe) is a self-hosted manga archive server. It stores manga and doujinshi in archive formats (ZIP, CBZ, RAR, CBR, 7z, PDF, and others) and serves them over a web interface and API. The LANraragi extension registers two sources — **LANraragi (1)** and **LANraragi (2)** — so you can connect to two servers at once.
+
+The default base URL in the extension is `http://127.0.0.1:3000`, which is LANraragi's default local port. If your server runs on a different address or port, update this in the source settings. LANraragi supports an API key for protected access; enter this key in the extension settings after providing the server URL.
+
+### Mango
+
+**APK:** `tachiyomi-all.mango-v1.4.11.apk`
+
+Mango is a self-hosted manga server that organises CBZ/CBR archives and exposes a reading interface. The extension registers a single **Mango** source. Open the source settings and enter your Mango server URL to connect. No base URL is pre-configured in the extension, so you must supply your server address before the source will return any results.
+
+### Cubari
+
+**APK:** `tachiyomi-all.cubari-v1.4.26.apk`
+
+[Cubari](https://cubari.moe) is a proxy reader rather than a server you run yourself — it reads image data from external backends and renders it as a consistent manga reader. The extension connects to `https://cubari.moe` and supports several backends including Imgur albums, GitHub Gists containing image lists, and direct image hosts. It registers three sources (**Cubari** in English, all-language, and other) to cover the different backend types.
+
+Because Cubari proxies content rather than storing it, no local server is required. You enter a Cubari-format URL or Gist URL in the app's search or URL field to open a specific series.
+
+### Bakkin and Bakkin Self-hosted
+
+**APKs:**
+- `tachiyomi-en.bakkin-v1.4.7.apk` — connects to the public Bakkin instance at `https://bakkin.moe/reader/`
+- `tachiyomi-en.bakkinselfhosted-v1.4.7.apk` — connects to a self-hosted Bakkin instance
+
+Bakkin is a manga reader platform. The **Bakkin** extension targets the hosted version at bakkin.moe. The **Bakkin Self-hosted** extension defaults to `http://127.0.0.1/` and is intended for users who run their own Bakkin instance. Open the source settings for the self-hosted extension and replace the default address with your server's URL.
+
+### StashApp
+
+**APK:** `tachiyomi-all.stashapp-v1.4.1.apk`
+
+The StashApp extension connects to a running [Stash](https://stashapp.cc) instance. Stash is a self-hosted media organiser primarily focused on video content, but it also stores and serves images and comics. The extension defaults to `http://localhost:9999`, which is Stash's default local port.
+
+**Note:** The StashApp extension carries an **NSFW** flag (`nsfw: 1`). It is hidden on the Extensions screen until you enable **Show NSFW sources** in **Settings → Browse**.
+
+To use it, install the extension, go to the StashApp source settings, and update the server URL to your Stash instance address. If your Stash instance uses API key authentication, enter the key in the extension settings.
+
+## Configuring a self-hosted extension
+
+The steps below apply to any self-hosted extension that requires you to enter a server URL.
+
+<Steps>
+  <Step title="Install the extension">
+    Open **Browse → Extensions** in your app. Find the extension (for example, **Komga**) and tap **Install**. If the extension is flagged NSFW, enable **Show NSFW sources** in **Settings → Browse** first.
+  </Step>
+  <Step title="Open the source settings">
+    After installation, go to **Browse → Sources**. Find the source you just installed and tap the **Settings** icon (gear icon) next to it.
+  </Step>
+  <Step title="Enter your server address">
+    Type or paste your server's URL into the **Address** or **Server URL** field. Use the full address including the protocol and port — for example, `http://192.168.1.50:25600` or `https://komga.example.com`.
+  </Step>
+  <Step title="Enter credentials if required">
+    If your server requires a username and password (Komga) or an API key (LANraragi, StashApp), fill in those fields as well.
+  </Step>
+  <Step title="Save and browse">
+    Tap **Save** or navigate back. Return to **Browse → Sources**, open the source, and your library should now appear.
+  </Step>
+</Steps>
+
+<Warning>
+  If your server is on a local network address (for example, `192.168.x.x`) you must be connected to the same network as the server for the extension to reach it. Remote access typically requires a VPN or exposing the server via a reverse proxy with a public domain.
+</Warning>

@@ -1,0 +1,50 @@
+---
+title: "Add Keiyoushi to Your Manga Reader App"
+description: "Add the Keiyoushi extension repository to Mihon or any Tachiyomi fork so you can browse and install 1,352+ manga source extensions."
+---
+
+Before you can install any extensions, you need to register the Keiyoushi repository URL in your app. This is a one-time step — once the repository is added, your app will check it automatically for new extensions and updates.
+
+## Add the repository URL
+
+<Steps>
+  <Step title="Open your app's repository settings">
+    In Mihon, go to **Browse** and tap the **Extension repositories** button (the document icon in the top-right corner). In some Tachiyomi forks this setting is under **Settings → Browse → Extension repositories** or **Settings → Advanced**.
+  </Step>
+  <Step title="Enter the Keiyoushi repository URL">
+    Tap **Add repository** (or the **+** button) and paste the following URL:
+
+    ```text
+    https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json
+    ```
+
+    Tap **Add** to confirm.
+  </Step>
+  <Step title="Wait for the index to load">
+    Your app will fetch the repository index. Once it finishes, the Keiyoushi repository will appear in the list with a count of available extensions. You are now ready to install extensions.
+  </Step>
+</Steps>
+
+<Note>
+  The first time you install an extension you may see a prompt asking you to allow installation from unknown sources. You need to grant this permission for APK installations to work. The exact prompt varies depending on your Android version and device manufacturer.
+</Note>
+
+## One-tap add via the Keiyoushi website
+
+If you are on your Android device, you can visit [keiyoushi.github.io/add-repo](https://keiyoushi.github.io/add-repo) to add the repository with a single tap. This opens your app directly and pre-fills the repository URL for you.
+
+## App-specific navigation notes
+
+The **Extension repositories** screen has different labels in some forks:
+
+| App | Navigation path |
+|-----|----------------|
+| Mihon | **Browse → Extension repositories** |
+| TachiyomiJ2K | **Settings → Browse → Extension repos** |
+| Tachiyomi forks (general) | **Settings → Browse** or **Settings → Advanced** |
+
+If your app does not have a repository screen, it may not support external repositories. Check your app's documentation or update to a recent version.
+
+<Tip>
+  The Keiyoushi repository index updates automatically when new extensions are published or existing ones are updated. You do not need to re-add the repository URL — your app will pick up changes the next time it refreshes the extension list.
+</Tip>

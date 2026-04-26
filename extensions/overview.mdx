@@ -1,0 +1,140 @@
+---
+title: "Extension Catalogue: 1,352+ Manga Sources"
+description: "Explore 1,352+ Keiyoushi extensions: what they are, the index JSON schema, APK naming, versioning, NSFW flags, and how to fetch the index programmatically."
+---
+
+The Keiyoushi extension catalogue contains over 1,352 individual extensions covering sources in more than 20 languages. Each extension is an Android APK that teaches your manga reader app how to communicate with a specific website — fetching chapter lists, cover images, search results, and page files. Installing an extension adds its sources to the **Browse** tab in your app, where you can search and read content from that site directly.
+
+## What an extension is
+
+An extension is a small Android APK that implements the source API expected by Mihon and Tachiyomi forks. When installed, it registers one or more sources with your reader app. The app calls into the extension to perform searches, fetch chapter lists, and load page images. The extension itself does not store any content — it only knows how to retrieve it from the target website.
+
+A single APK may expose multiple sources. For example, a scanlation platform that runs separate sites for English and Indonesian readers might package both as sources inside one extension.
+
+## Extension object schema
+
+The repository index at `index.json` is a JSON array where each element describes one extension. The fields are:
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | string | Display name of the extension (prefixed with `Tachiyomi:`) |
+| `pkg` | string | Android package name — used to uniquely identify the extension |
+| `apk` | string | APK filename, following the `tachiyomi-{lang}.{source}-v{version}.apk` convention |
+| `lang` | string | Primary language code of the extension (`en`, `ja`, `all`, etc.) |
+| `code` | integer | Version code — a monotonically increasing integer used by apps to detect updates |
+| `version` | string | Human-readable semantic version (`major.minor.patch`) |
+| `nsfw` | integer | Content rating: `0` = safe for work, `1` = NSFW |
+| `sources` | array | List of individual sources the extension exposes (see below) |
+
+### Example entry
+
+```json
+{
+  "name": "Tachiyomi: MangaDex",
+  "pkg": "eu.kanade.tachiyomi.extension.all.mangadex",
+  "apk": "tachiyomi-all.mangadex-v1.4.207.apk",
+  "lang": "all",
+  "code": 207,
+  "version": "1.4.207",
+  "nsfw": 0,
+  "sources": [
+    {
+      "name": "MangaDex",
+      "lang": "en",
+      "id": "2499283573021220255",
+      "baseUrl": "https://mangadex.org",
+      "versionId": 1
+    }
+  ]
+}
+```
+
+## Content ratings
+
+The `nsfw` field controls whether an extension is visible to users who have not opted in to adult content:
+
+- **`nsfw: 0`** — The extension connects to a site with general-audience content. It is visible on the Extensions screen by default.
+- **`nsfw: 1`** — The extension connects to a site with adult content. It is hidden on the Extensions screen until you enable **Show NSFW sources** in your app's **Settings → Browse**.
+
+<Note>
+  Enabling NSFW sources only makes those extensions visible on the Extensions screen so you can choose to install them. It does not affect content filtering within individual sources.
+</Note>
+
+## The `sources` array
+
+Each extension object contains a `sources` array listing every source the extension registers. A source represents a distinct browsable catalogue — it has its own name, language, and base URL. The fields in each source entry are:
+
+| Field | Type | Description |
+|---|---|---|
+| `name` | string | Display name shown in the app's **Browse → Sources** list |
+| `lang` | string | ISO 639-1 language code for the content served by this source |
+| `id` | string | Stable numeric identifier used internally by the app |
+| `baseUrl` | string | Root URL of the website this source fetches content from |
+| `versionId` | integer | Source API version; incremented when the source interface changes |
+
+A single extension commonly exposes one source, but multi-language platforms like NineManga or AsmHentai may expose several — one per language or content type — all bundled in the same APK.
+
+## APK naming convention
+
+Every APK filename follows this pattern:
+
+```text
+tachiyomi-{lang}.{source}-v{version}.apk
+```
+
+- `{lang}` — the extension's primary language code (e.g., `en`, `ja`, `all`)
+- `{source}` — a lowercase slug identifying the source (e.g., `mangadex`, `mangaplus`)
+- `{version}` — the semantic version string (e.g., `1.4.207`)
+
+For example, `tachiyomi-all.mangadex-v1.4.207.apk` is version 1.4.207 of the MangaDex extension, which covers all languages.
+
+## Versioning
+
+Extensions use two parallel version identifiers:
+
+- **`version`** — a semantic version string in `major.minor.patch` form (e.g., `1.4.207`). The major version is always `1` for all extensions in this repository. The patch number is the authoritative increment that changes with every release.
+- **`code`** — an integer equal to the patch number. Your app compares this value against the installed extension to decide whether an update is available. A higher `code` always means a newer release.
+
+When the source website changes its structure and an extension needs to be updated to match, the patch number (and therefore `code`) increases by one.
+
+## Access the index programmatically
+
+You can fetch the extension index directly for tooling, scripts, or custom clients:
+
+| URL | Use |
+|---|---|
+| `https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json` | Minified JSON — use this in apps and automated scripts where payload size matters |
+| `https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.json` | Full formatted JSON — use this for inspection, tooling, or human-readable access |
+
+Both endpoints return the same data. The minified URL is what you paste into your app when [adding the repository](/getting-started/adding-the-repo).
+
+The repository also exposes a metadata endpoint at `https://raw.githubusercontent.com/keiyoushi/extensions/repo/repo.json`, which contains the repository's display name, website URL, and APK signing key fingerprint:
+
+```json
+{
+  "meta": {
+    "name": "Keiyoushi",
+    "website": "https://keiyoushi.github.io",
+    "signingKeyFingerprint": "9add655a78e96c4ec7a53ef89dccb557cb5d767489fac5e785d671a5a75d4da2"
+  }
+}
+```
+
+Apps that support multiple extension repositories use the `name` field to label the repository in the UI and the `signingKeyFingerprint` to verify that installed APKs were signed by the expected key.
+
+```bash
+# Fetch the full index and pretty-print it (requires jq)
+curl -s https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.json | jq '.[0:3]'
+```
+
+<CardGroup cols={3}>
+  <Card title="Language support" icon="globe" href="/extensions/language-support">
+    See all supported language codes, extension counts, and how multi-language sources work.
+  </Card>
+  <Card title="Popular sources" icon="star" href="/extensions/popular-sources">
+    Notable extensions including MangaDex, MANGA Plus, Webtoons, and Komga.
+  </Card>
+  <Card title="Self-hosted sources" icon="server" href="/extensions/self-hosted-sources">
+    Extensions for self-hosted readers like Komga, LANraragi, Mango, and Kavita.
+  </Card>
+</CardGroup>

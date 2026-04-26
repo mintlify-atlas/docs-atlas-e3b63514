@@ -1,0 +1,39 @@
+---
+title: "Keiyoushi Extensions: Community Manga Sources"
+description: "Keiyoushi is a community-maintained extension repository for Mihon and Tachiyomi forks, offering 1,352+ manga source extensions across 20+ languages."
+---
+
+Keiyoushi Extensions is the community-maintained extension repository for [Mihon](https://mihon.app) and all major Tachiyomi forks. It provides over 1,352 source extensions — packaged as Android APKs — that connect your reader app to manga, manhwa, manhua, and webcomic sites across more than 20 languages. Once you add the repository to your app, you can install, update, and remove individual extensions without leaving the app.
+
+<CardGroup cols={2}>
+  <Card title="Add the repository" icon="plus" href="/getting-started/adding-the-repo">
+    Connect your app to the Keiyoushi repository using a single URL.
+  </Card>
+  <Card title="Install extensions" icon="download" href="/getting-started/installing-extensions">
+    Find and install individual source extensions from within your app.
+  </Card>
+  <Card title="Browse extensions" icon="grid" href="/extensions/overview">
+    Explore the full catalogue of 1,352+ extensions by language and source type.
+  </Card>
+  <Card title="FAQ" icon="circle-question" href="/guides/faq">
+    Answers to common questions about extensions, updates, and compatibility.
+  </Card>
+</CardGroup>
+
+## What is Keiyoushi Extensions?
+
+Keiyoushi Extensions is a distribution repository — a structured index of Android APK files that your manga reader app can fetch, install, and update automatically. Each extension adds one or more reading sources to your app's **Browse** tab, letting you search and read content from that site.
+
+The repository index is hosted on GitHub and updated automatically whenever the source code at [github.com/keiyoushi/extensions-source](https://github.com/keiyoushi/extensions-source) changes. Your app checks this index for available extensions and notifies you when updates are released.
+
+## Compatible apps
+
+Keiyoushi Extensions works with Mihon and all Tachiyomi forks that support external extension repositories. The process for adding the repository is the same across all compatible apps, though menu labels may differ slightly between forks.
+
+## Content and hosting
+
+Keiyoushi does not host manga content. When you install an extension and open a source, all content — chapter pages, covers, and metadata — is served directly by the third-party website that the extension connects to. Keiyoushi only distributes the APK files that teach your app how to communicate with those sites.
+
+<Note>
+  Extensions that connect to sites with adult content are marked as NSFW in the index and are hidden in your app by default. You must explicitly enable NSFW content in your app's settings before they appear.
+</Note>
